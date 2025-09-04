@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.14.36327.8
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GetJob", "GetJob\GetJob.csproj", "{1C1E8B5C-99C0-4994-BBF9-804430D1B994}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GetJob.Data", "Getjob.Data\GetJob.Data.csproj", "{D86FF798-C0FF-4DD3-BF40-B6939A876860}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GetJob.Entities", "GetJob.Entities\GetJob.Entities.csproj", "{6EB77EC7-121D-48F1-9827-4B7E11CD1992}"
@@ -19,10 +17,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{1C1E8B5C-99C0-4994-BBF9-804430D1B994}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1C1E8B5C-99C0-4994-BBF9-804430D1B994}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1C1E8B5C-99C0-4994-BBF9-804430D1B994}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1C1E8B5C-99C0-4994-BBF9-804430D1B994}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D86FF798-C0FF-4DD3-BF40-B6939A876860}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D86FF798-C0FF-4DD3-BF40-B6939A876860}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D86FF798-C0FF-4DD3-BF40-B6939A876860}.Release|Any CPU.ActiveCfg = Release|Any CPU
