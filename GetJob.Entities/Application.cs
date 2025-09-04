@@ -14,6 +14,11 @@ namespace GetJob.Entities
         public DateTime AppliedDate { get; set; }
         public string? Status { get; set; } // Pending / Accepted / Rejected
 
+        // Extra fields
+        public string? ResumeUrl { get; set; }
+        public string? CoverLetter { get; set; }
+        public DateTime? UpdatedDate { get; set; }
+
         // Foreign Keys
         public int JobId { get; set; }
         public Job? Job { get; set; }

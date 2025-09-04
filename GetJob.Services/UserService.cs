@@ -391,9 +391,18 @@ namespace GetJob.Services
             await _context.SaveChangesAsync();
             return true;
         }
-        public Task<bool> IsEmailTakenAsync(string email)
+
+        /// <summary>
+        /// Checks whether a given email address is already registered in the system.
+        /// </summary>
+        /// <param name="email">The email address to check.</param>
+        /// <returns>
+        /// A task that represents the asynchronous operation. 
+        /// The task result contains <c>true</c> if the email is already taken; otherwise, <c>false</c>.
+        /// </returns>
+        public async Task<bool> IsEmailTakenAsync(string email)
         {
-            throw new NotImplementedException();
+            return await _context.Users.AnyAsync(u => u.Email == email);
         }
 
         #endregion
