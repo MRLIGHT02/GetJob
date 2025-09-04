@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Getjob.Data\GetJob.Data.csproj" />
+    <ProjectReference Include="..\GetJob.ServiceContracts\GetJob.ServiceContracts.csproj" />
+  </ItemGroup>
+
+</Project>
