@@ -18,6 +18,12 @@ namespace GetJob.Controllers
 
         #region Authentication & Registration
 
+        /// <summary>
+        /// Registers a new user using the provided registration DTO.
+        /// Maps the DTO to the User entity and returns a public DTO.
+        /// </summary>
+        /// <param name="registrationDto">The registration details including name, email, password, and role.</param>
+        /// <returns>Returns the created user as a public DTO.</returns>
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] UserRegistrationDto registrationDto)
         {
@@ -45,6 +51,12 @@ namespace GetJob.Controllers
 
         }
 
+        /// <summary>
+        /// Authenticates a user using email and password.
+        /// Returns a public DTO if login is successful.
+        /// </summary>
+        /// <param name="loginDto">The login details including email and password.</param>
+        /// <returns>Returns the authenticated user as a public DTO or Unauthorized if credentials are invalid.</returns>
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] UserLoginDto loginDto)
         {
@@ -61,6 +73,11 @@ namespace GetJob.Controllers
 
         #region CRUD Operations
 
+        /// <summary>
+        /// Retrieves all users in the system.
+        /// Maps entities to public DTOs to avoid exposing sensitive data.
+        /// </summary>
+        /// <returns>A list of public user DTOs.</returns>
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -70,6 +87,11 @@ namespace GetJob.Controllers
             return Ok(publicUsers);
         }
 
+        /// <summary>
+        /// Retrieves a user by their unique identifier.
+        /// </summary>
+        /// <param name="id">The user ID.</param>
+        /// <returns>The public DTO of the user if found, otherwise NotFound.</returns>
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
@@ -82,6 +104,13 @@ namespace GetJob.Controllers
             return Ok(publicUser);
         }
 
+        /// <summary>
+        /// Updates a user's profile using the provided DTO.
+        /// Only allowed properties are updated.
+        /// </summary>
+        /// <param name="id">The user ID.</param>
+        /// <param name="userDto">The DTO containing updated profile information.</param>
+        /// <returns>NoContent if successful, NotFound if the user does not exist.</returns>
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateUser(int id, [FromBody] UserProfileUpdateDto userDto)
         {
@@ -103,6 +132,11 @@ namespace GetJob.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Deletes a user from the system by their ID.
+        /// </summary>
+        /// <param name="id">The user ID.</param>
+        /// <returns>NoContent after deletion.</returns>
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser(int id)
         {
@@ -114,6 +148,12 @@ namespace GetJob.Controllers
 
         #region Profile Management
 
+        /// <summary>
+        /// Changes the password of a user.
+        /// </summary>
+        /// <param name="id">The user ID.</param>
+        /// <param name="passwords">DTO containing old and new passwords.</param>
+        /// <returns>NoContent if successful, BadRequest if the old password is incorrect or user not found.</returns>
         [HttpPut("{id}/change-password")]
         public async Task<IActionResult> ChangePassword(int id, [FromBody] PasswordChangeDto passwords)
         {
@@ -121,7 +161,12 @@ namespace GetJob.Controllers
             if (!success) return BadRequest("Old password is incorrect or user not found");
             return NoContent();
         }
-
+        /// <summary>
+        /// Updates the profile of a user.
+        /// </summary>
+        /// <param name="id">The user ID.</param>
+        /// <param name="userDto">DTO containing updated profile information.</param>
+        /// <returns>NoContent if successful, NotFound if the user does not exist.</returns>
         [HttpPut("{id}/update-profile")]
         public async Task<IActionResult> UpdateProfile(int id, [FromBody] UserProfileUpdateDto userDto)
         {
@@ -155,7 +200,12 @@ namespace GetJob.Controllers
 
         #region Role Management
 
-
+        /// <summary>
+        /// Assigns a role to a user.
+        /// </summary>
+        /// <param name="id">The user ID.</param>
+        /// <param name="roleDto">DTO containing the role to assign.</param>
+        /// <returns>NoContent if successful, NotFound if the user does not exist.</returns>
         [HttpPut("{id}/assign-role")]
         public async Task<IActionResult> AssignRole(int id, [FromBody] AssignRoleDto roleDto)
         {
@@ -170,6 +220,12 @@ namespace GetJob.Controllers
                 return NotFound(ex.Message); // 404 Not Found
             }
         }
+
+        /// <summary>
+        /// Retrieves all users with a specific role.
+        /// </summary>
+        /// <param name="role">The role to filter users by.</param>
+        /// <returns>A list of users with the specified role.</returns>
         [HttpGet("role/{role}")]
         public async Task<IEnumerable<User>> GetUsersByRole(string role)
         {
@@ -179,7 +235,11 @@ namespace GetJob.Controllers
         #endregion
 
         #region Account Status
-
+        /// <summary>
+        /// Deactivates a user account.
+        /// </summary>
+        /// <param name="id">The user ID.</param>
+        /// <returns>NoContent if successful, NotFound if the user does not exist.</returns>
         [HttpPut("{id}/deactivate")]
         public async Task<IActionResult> DeactivateUser(int id)
         {
@@ -187,7 +247,11 @@ namespace GetJob.Controllers
             if (!success) return NotFound();
             return NoContent();
         }
-
+        /// <summary>
+        /// Activates a user account.
+        /// </summary>
+        /// <param name="id">The user ID.</param>
+        /// <returns>NoContent if successful, NotFound if the user does not exist.</returns>
         [HttpPut("{id}/activate")]
         public async Task<IActionResult> ActivateUser(int id)
         {
@@ -199,7 +263,12 @@ namespace GetJob.Controllers
         #endregion
 
         #region Security
-
+        /// <summary>
+        /// Resets a user's password.
+        /// </summary>
+        /// <param name="id">The user ID.</param>
+        /// <param name="resetDto">DTO containing the new password.</param>
+        /// <returns>NoContent if successful, NotFound if the user does not exist.</returns>
         [HttpPut("{id}/reset-password")]
         public async Task<IActionResult> ResetPassword(int id, [FromBody] ResetPasswordDto resetDto)
         {
@@ -213,7 +282,11 @@ namespace GetJob.Controllers
 
             return NoContent();
         }
-
+        /// <summary>
+        /// Checks if an email is already taken by any user.
+        /// </summary>
+        /// <param name="email">The email to check.</param>
+        /// <returns>True if email is taken, otherwise false.</returns>
         [HttpGet("is-email-taken")]
         public async Task<IActionResult> IsEmailTaken([FromQuery] string email)
         {
