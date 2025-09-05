@@ -1,6 +1,6 @@
 ﻿using GetJob.Entities;
 using GetJob.ServiceContracts;
-using GetJob.ServiceContracts.DTOs;
+using GetJob.Dtos;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GetJob.Controllers
@@ -37,13 +37,27 @@ namespace GetJob.Controllers
                 {
                     Name = registrationDto.Name,
                     Email = registrationDto.Email,
-                    Role = registrationDto.Role
+                    Role = (UserRole)Enum.Parse(typeof(UserRole), registrationDto.Role!)
                 };
 
-                var createdUser = await _userService.RegisterAsync(newUser, registrationDto.Password);
+                var createdUser = await _userService.RegisterAsync(newUser, registrationDto.Password!);
 
-                // Map the created entity back to a public DTO for the response
-                var publicUser = new UserPublicDto(createdUser.UserId, createdUser.Name!, createdUser.Email!, createdUser.Role!, createdUser.PhoneNumber, createdUser.Location, createdUser.Skills, createdUser.IsActive);
+                // Map the created entity to the correct DTO for the response
+                var publicUser = new UserProfileDto
+                {
+                    UserId = createdUser.UserId,
+                    Name = createdUser.Name,
+                    Email = createdUser.Email,
+                    Role = createdUser.Role,
+                    PhoneNumber = createdUser.PhoneNumber,
+                    Location = createdUser.Location,
+                    ProfilePictureUrl = createdUser.ProfilePictureUrl,
+                    ResumeUrl = createdUser.ResumeUrl,
+                    Skills = createdUser.Skills,
+                    CompanyName = createdUser.CompanyName,
+                    CompanyDescription = createdUser.CompanyDescription,
+                    CompanyWebsite = createdUser.CompanyWebsite
+                };
 
                 return CreatedAtAction(nameof(GetById), new { id = createdUser.UserId }, publicUser);
             }
@@ -63,11 +77,25 @@ namespace GetJob.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] UserLoginDto loginDto)
         {
-            var user = await _userService.LoginAsync(loginDto.Email, loginDto.Password);
+            var user = await _userService.LoginAsync(loginDto.Email!, loginDto.Password!);
             if (user == null) return Unauthorized("Invalid credentials");
 
             // Return a DTO to avoid exposing the password hash
-            var publicUser = new UserPublicDto(user.UserId, user.Name!, user.Email!, user.Role!, user.PhoneNumber, user.Location, user.Skills, user.IsActive);
+            var publicUser = new UserProfileDto
+            {
+                UserId = user.UserId,
+                Name = user.Name,
+                Email = user.Email,
+                Role = user.Role,
+                PhoneNumber = user.PhoneNumber,
+                Location = user.Location,
+                ProfilePictureUrl = user.ProfilePictureUrl,
+                ResumeUrl = user.ResumeUrl,
+                Skills = user.Skills,
+                CompanyName = user.CompanyName,
+                CompanyDescription = user.CompanyDescription,
+                CompanyWebsite = user.CompanyWebsite
+            };
 
             return Ok(publicUser);
         }
@@ -86,7 +114,21 @@ namespace GetJob.Controllers
         {
             var users = await _userService.GetAllAsync();
             // Map all entities to DTOs before returning
-            var publicUsers = users.Select(u => new UserPublicDto(u.UserId, u.Name!, u.Email!, u.Role!, u.PhoneNumber, u.Location, u.Skills, u.IsActive));
+            var publicUsers = users.Select(u => new UserProfileDto
+            {
+                UserId = u.UserId,
+                Name = u.Name,
+                Email = u.Email,
+                Role = u.Role,
+                PhoneNumber = u.PhoneNumber,
+                Location = u.Location,
+                ProfilePictureUrl = u.ProfilePictureUrl,
+                ResumeUrl = u.ResumeUrl,
+                Skills = u.Skills,
+                CompanyName = u.CompanyName,
+                CompanyDescription = u.CompanyDescription,
+                CompanyWebsite = u.CompanyWebsite
+            });
             return Ok(publicUsers);
         }
 
@@ -102,8 +144,21 @@ namespace GetJob.Controllers
             if (user == null) return NotFound();
 
             // Return a DTO to avoid exposing sensitive data
-            var publicUser = new UserPublicDto(user.UserId, user.Name!, user.Email!, user.Role!, user.PhoneNumber, user.Location, user.Skills, user.IsActive);
-
+            var publicUser = new UserProfileDto
+            {
+                UserId = user.UserId,
+                Name = user.Name,
+                Email = user.Email,
+                Role = user.Role,
+                PhoneNumber = user.PhoneNumber,
+                Location = user.Location,
+                ProfilePictureUrl = user.ProfilePictureUrl,
+                ResumeUrl = user.ResumeUrl,
+                Skills = user.Skills,
+                CompanyName = user.CompanyName,
+                CompanyDescription = user.CompanyDescription,
+                CompanyWebsite = user.CompanyWebsite
+            };
             return Ok(publicUser);
         }
 
@@ -127,10 +182,13 @@ namespace GetJob.Controllers
             existingUser.Location = userDto.Location;
             existingUser.ProfilePictureUrl = userDto.ProfilePictureUrl;
             existingUser.ResumeUrl = userDto.ResumeUrl;
-            existingUser.Skills = userDto.Skills;
-
+         
+            existingUser.CompanyName = userDto.CompanyName;
+            existingUser.CompanyDescription = userDto.CompanyDescription;
+            existingUser.CompanyWebsite = userDto.CompanyWebsite;
+           
             var success = await _userService.UpdateProfileAsync(existingUser);
-            if (!success) return NotFound();
+            if (!success) return BadRequest("Failed to update profile.");
 
             return NoContent();
         }
@@ -164,40 +222,6 @@ namespace GetJob.Controllers
             if (!success) return BadRequest("Old password is incorrect or user not found");
             return NoContent();
         }
-        /// <summary>
-        /// Updates the profile of a user.
-        /// </summary>
-        /// <param name="id">The user ID.</param>
-        /// <param name="userDto">DTO containing updated profile information.</param>
-        /// <returns>NoContent if successful, NotFound if the user does not exist.</returns>
-        [HttpPut("{id}/update-profile")]
-        public async Task<IActionResult> UpdateProfile(int id, [FromBody] UserProfileUpdateDto userDto)
-        {
-            // 1. Fetch the existing user entity from the database
-            var existingUser = await _userService.GetByIdAsync(id);
-            if (existingUser == null)
-            {
-                return NotFound();
-            }
-
-            // 2. Manually map the allowed properties from the DTO to the entity
-            existingUser.Name = userDto.Name;
-            existingUser.Email = userDto.Email;
-            existingUser.PhoneNumber = userDto.PhoneNumber;
-            existingUser.Location = userDto.Location;
-            existingUser.ProfilePictureUrl = userDto.ProfilePictureUrl;
-            existingUser.ResumeUrl = userDto.ResumeUrl;
-            existingUser.Skills = userDto.Skills;
-
-            // 3. Pass the *entity* to the service for updating
-            var success = await _userService.UpdateProfileAsync(existingUser);
-            if (!success)
-            {
-                return BadRequest("Failed to update profile.");
-            }
-
-            return NoContent();
-        }
 
         #endregion
 
@@ -219,7 +243,6 @@ namespace GetJob.Controllers
             }
             catch (Exception ex)
             {
-
                 return NotFound(ex.Message); // 404 Not Found
             }
         }
@@ -230,9 +253,25 @@ namespace GetJob.Controllers
         /// <param name="role">The role to filter users by.</param>
         /// <returns>A list of users with the specified role.</returns>
         [HttpGet("role/{role}")]
-        public async Task<IEnumerable<User>> GetUsersByRole(string role)
+        public async Task<IActionResult> GetUsersByRole(UserRole role)
         {
-            return await _userService.GetUsersByRoleAsync(role);
+            var users = await _userService.GetUsersByRoleAsync(role);
+            var publicUsers = users.Select(u => new UserProfileDto
+            {
+                UserId = u.UserId,
+                Name = u.Name,
+                Email = u.Email,
+                Role = u.Role,
+                PhoneNumber = u.PhoneNumber,
+                Location = u.Location,
+                ProfilePictureUrl = u.ProfilePictureUrl,
+                ResumeUrl = u.ResumeUrl,
+                Skills = u.Skills,
+                CompanyName = u.CompanyName,
+                CompanyDescription = u.CompanyDescription,
+                CompanyWebsite = u.CompanyWebsite
+            });
+            return Ok(publicUsers);
         }
 
         #endregion
@@ -299,6 +338,6 @@ namespace GetJob.Controllers
 
         #endregion
 
-        #endregion
+#endregion
     }
 }

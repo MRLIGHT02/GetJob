@@ -3,6 +3,8 @@ using Scalar.AspNetCore;
 using GetJob.Data;
 using GetJob.ServiceContracts;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
+using Microsoft.EntityFrameworkCore.SqlServer;
 
 var builder = WebApplication.CreateBuilder(args);
 

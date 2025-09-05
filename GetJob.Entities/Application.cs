@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace GetJob.Entities
 {
@@ -12,9 +7,8 @@ namespace GetJob.Entities
         [Key]
         public int ApplicationId { get; set; }
         public DateTime AppliedDate { get; set; }
-        public string? Status { get; set; } // Pending / Accepted / Rejected
+        public string? Status { get; set; }
 
-        // Extra fields
         public string? ResumeUrl { get; set; }
         public string? CoverLetter { get; set; }
         public DateTime? UpdatedDate { get; set; }
@@ -23,7 +17,8 @@ namespace GetJob.Entities
         public int JobId { get; set; }
         public Job? Job { get; set; }
 
-        public int CandidateId { get; set; }
-        public User? Candidate { get; set; }
+        // Now uses the generic User type for the relationship
+        public int JobseekerId { get; set; }
+        public User? Jobseeker { get; set; }
     }
 }

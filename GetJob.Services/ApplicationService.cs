@@ -80,13 +80,13 @@ namespace GetJob.Services
         /// <param name="candidateId">The unique identifier of the candidate.</param>
         /// <returns>A <see cref="Task{IEnumerable{Application}}"/> containing the applications for the candidate.</returns>
         /// <exception cref="ArgumentNullException">Thrown when no applications are found for the given candidate.</exception>
-        public async Task<IEnumerable<Application>> GetByCandidateIdAsync(int candidateId)
+        public async Task<IEnumerable<Application>> GetByCandidateIdAsync(int JobseekerId)
         {
-            var currentCandidate = await _context.Applications.Where(candi => candi.CandidateId == candidateId).ToListAsync(); ;
+            var currentCandidate = await _context.Applications.Where(candi => candi.JobseekerId == JobseekerId).ToListAsync(); ;
 
             if (!currentCandidate.Any())
             {
-                throw new KeyNotFoundException($"No applications found for candidate ID {candidateId}.");
+                throw new KeyNotFoundException($"No applications found for candidate ID {JobseekerId}.");
             }
 
             return currentCandidate;

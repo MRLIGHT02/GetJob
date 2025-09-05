@@ -20,8 +20,8 @@ namespace GetJob.ServiceContracts
         Task<bool> UpdateProfileAsync(User user);
 
         // 🔹 Role Management
-        Task AssignRoleAsync(int id, string role);
-        Task<IEnumerable<User>> GetUsersByRoleAsync(string role);
+        Task AssignRoleAsync(int id, UserRole role);
+        Task<IEnumerable<User>> GetUsersByRoleAsync(UserRole role);
 
         // 🔹 Account Status
         Task<bool> DeactivateUserAsync(int id);

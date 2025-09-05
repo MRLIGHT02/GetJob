@@ -1,34 +1,51 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace GetJob.Entities
 {
+    // The single user entity for both job seekers and employers.
     public class User
     {
         [Key]
         public int UserId { get; set; }
 
-        // Basic Info
+        // Common properties
         public string? Name { get; set; }
         public string? Email { get; set; }
-        public string? PasswordHash { get; set; }
-        public string? Role { get; set; }
 
-        // Extra Profile Info
+        // Store hashed password
+        public string? PasswordHash { get; set; }
+
+        // User role (Jobseeker / Employer)
+        public UserRole Role { get; set; } = UserRole.Jobseeker;
+
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        public DateTime? UpdatedAt { get; set; }
+        public bool IsActive { get; set; } = true;
+
+        // Jobseeker specific
         public string? PhoneNumber { get; set; }
         public string? Location { get; set; }
         public string? ProfilePictureUrl { get; set; }
         public string? ResumeUrl { get; set; }
-        public List<string>? Skills { get; set; } // e.g. "C#, SQL, Angular"
 
-        // Account Management
-        public bool IsActive { get; set; } = true;
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-        public DateTime? UpdatedAt { get; set; }
-        public DateTime? LastLogin { get; set; }
+        // ✅ Skills stored as comma-separated string
+        // e.g. "C#, ASP.NET Core, SQL"
+        public List<string>? Skills { get; init; }
+        // Employer specific
+        public string? CompanyName { get; set; }
+        public string? CompanyDescription { get; set; }
+        public string? CompanyWebsite { get; set; }
 
-        // Relationships (agar baad me chahiye)
-        public ICollection<Application>? Applications { get; set; }
+        // Navigation properties
         public ICollection<Job>? Jobs { get; set; }
+        public ICollection<Application>? Applications { get; set; }
+    }
+
+    // Enum for user roles
+    public enum UserRole
+    {
+        Jobseeker,
+        Employer,
+        Admin
     }
 }
