@@ -9,12 +9,15 @@ namespace GetJob.Controllers
     [Route("api/[controller]")]
     public class UsersController : ControllerBase
     {
+        #region Box And Item
         private readonly IUserService _userService;
 
+        #region Constructor
         public UsersController(IUserService userService)
         {
             _userService = userService;
         }
+        #endregion
 
         #region Authentication & Registration
 
@@ -293,6 +296,8 @@ namespace GetJob.Controllers
             var result = await _userService.IsEmailTakenAsync(email);
             return Ok(result);
         }
+
+        #endregion
 
         #endregion
     }

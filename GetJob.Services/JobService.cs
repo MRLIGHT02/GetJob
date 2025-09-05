@@ -1,13 +1,11 @@
-﻿using Azure.Core;
-using GetJob.Data;
+﻿using GetJob.Data;
 using GetJob.Entities;
 using GetJob.ServiceContracts;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 
 namespace GetJob.Services
 {
-    public class JobService: IJobService
+    public class JobService : IJobService
     {
         private readonly JobPortalContext _jobPortalContext;
 
@@ -16,7 +14,7 @@ namespace GetJob.Services
             _jobPortalContext = jobPortalContext;
         }
 
-        public async Task AddJob(Job job) 
+        public async Task AddJob(Job job)
         {
             _jobPortalContext.Jobs.Add(job);
             await _jobPortalContext.SaveChangesAsync();
@@ -26,9 +24,10 @@ namespace GetJob.Services
         public async Task DeleteJob(int id)
         {
             var job = _jobPortalContext.Jobs.Find(id);
-            if (job != null) {
-            
-            _jobPortalContext.Jobs.Remove(job);
+            if (job != null)
+            {
+
+                _jobPortalContext.Jobs.Remove(job);
                 await _jobPortalContext.SaveChangesAsync();
             }
 
@@ -47,8 +46,8 @@ namespace GetJob.Services
         public async Task<Job> GetJobById(int id)
         {
 
-           var FoundJob = await _jobPortalContext.Jobs.FindAsync(id);
-            if (FoundJob !=null)
+            var FoundJob = await _jobPortalContext.Jobs.FindAsync(id);
+            if (FoundJob != null)
             {
                 return FoundJob;
             }
@@ -61,7 +60,7 @@ namespace GetJob.Services
 
         public async Task UpdateJob(Job job)
         {
-           
+
             _jobPortalContext.Entry(job).State = EntityState.Modified;
             await _jobPortalContext.SaveChangesAsync();
         }
