@@ -1,13 +1,14 @@
 ﻿using GetJob.Entities;
+using GetJob.ServiceContracts.DTOs;
 
 namespace GetJob.ServiceContracts
 {
     public interface IJobService
     {
-       public Task<IEnumerable<Job>> GetAllJobs();
-        public Task<Job> GetJobById(int id);
-        public Task AddJob(Job job);
-        public Task UpdateJob(Job job);
-        public Task DeleteJob(int id);
+        Task<JobResponseDto> AddJobAsync(JobCreateDto jobDto);
+        Task<JobResponseDto> UpdateJobAsync(JobUpdateDto jobDto);
+        Task DeleteJobAsync(int id);
+        Task<JobResponseDto?> GetJobByIdAsync(int id);
+        Task<IEnumerable<JobResponseDto>> GetAllJobsAsync();
     }
 }

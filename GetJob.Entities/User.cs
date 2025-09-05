@@ -7,6 +7,8 @@ namespace GetJob.Entities
     {
         [Key]
         public int UserId { get; set; }
+        public int? EmployerId { get; set; }
+        public int? JobseekerId { get; set; }
 
         // Common properties
         public string? Name { get; set; }
@@ -16,7 +18,7 @@ namespace GetJob.Entities
         public string? PasswordHash { get; set; }
 
         // User role (Jobseeker / Employer)
-        public UserRole Role { get; set; } = UserRole.Jobseeker;
+        public UserRole Role { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public DateTime? UpdatedAt { get; set; }
@@ -30,7 +32,7 @@ namespace GetJob.Entities
 
         // ✅ Skills stored as comma-separated string
         // e.g. "C#, ASP.NET Core, SQL"
-        public List<string>? Skills { get; init; }
+        public List<string>? Skills { get; set; }
         // Employer specific
         public string? CompanyName { get; set; }
         public string? CompanyDescription { get; set; }

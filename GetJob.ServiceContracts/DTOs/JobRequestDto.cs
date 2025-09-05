@@ -1,38 +1,44 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using GetJob.Entities;
 
 namespace GetJob.ServiceContracts.DTOs
 {
-    public class JobRequestDto
+    // Employer uploads job
+    public class JobCreateDto
     {
-        [Required(ErrorMessage = "Title is required.")]
-        [StringLength(100, ErrorMessage = "Title cannot exceed 100 characters.")]
-        public string? Title { get; set; }
 
-        [Required(ErrorMessage = "Description is required.")]
-        public string? Description { get; set; }
-
-        [Required(ErrorMessage = "Company name is required.")]
-        public string? Company { get; set; }
-
-        [Required(ErrorMessage = "Location is required.")]
-        public string? Location { get; set; }
-
-        [Range(0, double.MaxValue, ErrorMessage = "Salary must be a non-negative value.")]
+        public string Title { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
+        public string Company { get; set; } = string.Empty;
+        public string Location { get; set; } = string.Empty;
         public decimal Salary { get; set; }
 
-        [Required(ErrorMessage = "EmployerId is required.")]
-        public int EmployerId { get; set; }
+        // EmployerId must be set to know who created the job
+       public int? EmployerId { get; set; }
     }
 
+    // For updating job
+    public class JobUpdateDto
+    {
+        public int JobId { get; set; }
+        public string Title { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
+        public string Company { get; set; } = string.Empty;
+        public string Location { get; set; } = string.Empty;
+        public decimal Salary { get; set; }
+    }
+
+    // For showing job details (read-only)
     public class JobResponseDto
     {
         public int JobId { get; set; }
-        public string? Title { get; set; }
-        public string? Description { get; set; }
-        public string? Company { get; set; }
-        public string? Location { get; set; }
+        public string Title { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
+        public string Company { get; set; } = string.Empty;
+        public string Location { get; set; } = string.Empty;
         public decimal Salary { get; set; }
         public DateTime PostedDate { get; set; }
+
         public int EmployerId { get; set; }
+        public string EmployerName { get; set; } = string.Empty;
     }
 }

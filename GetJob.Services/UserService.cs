@@ -32,8 +32,27 @@ namespace GetJob.Services
             user.PasswordHash = HashPassword(password);
             user.IsActive = true;
 
+            // ✅ Role ke hisaab se EmployerId / JobseekerId assign karo
+            if (user.Role == UserRole.Employer)
+            {
+                var lastEmployerId = await _context.Users
+                    .Where(u => u.EmployerId != null)
+                    .MaxAsync(u => (int?)u.EmployerId) ?? 0;
+
+                user.EmployerId = lastEmployerId + 1;
+            }
+            else if (user.Role == UserRole.Jobseeker)
+            {
+                var lastJobseekerId = await _context.Users
+                    .Where(u => u.JobseekerId != null)
+                    .MaxAsync(u => (int?)u.JobseekerId) ?? 0;
+
+                user.JobseekerId = lastJobseekerId + 1;
+            }
+
             await _context.Users.AddAsync(user);
             await _context.SaveChangesAsync();
+
             return user;
         }
 
@@ -133,6 +152,7 @@ namespace GetJob.Services
             existingUser.ResumeUrl = user.ResumeUrl;
             existingUser.ProfilePictureUrl = user.ProfilePictureUrl;
             existingUser.CompanyName = user.CompanyName;
+            existingUser.Skills = user.Skills;
             existingUser.CompanyDescription = user.CompanyDescription;
             existingUser.CompanyWebsite = user.CompanyWebsite;
             existingUser.UpdatedAt = DateTime.UtcNow;

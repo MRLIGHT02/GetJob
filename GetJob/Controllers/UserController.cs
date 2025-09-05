@@ -54,11 +54,12 @@ namespace GetJob.Controllers
                     ProfilePictureUrl = createdUser.ProfilePictureUrl,
                     ResumeUrl = createdUser.ResumeUrl,
                     Skills = createdUser.Skills,
+                
                     CompanyName = createdUser.CompanyName,
                     CompanyDescription = createdUser.CompanyDescription,
                     CompanyWebsite = createdUser.CompanyWebsite
                 };
-
+             
                 return CreatedAtAction(nameof(GetById), new { id = createdUser.UserId }, publicUser);
             }
             catch (System.Exception ex)
@@ -87,15 +88,19 @@ namespace GetJob.Controllers
                 Name = user.Name,
                 Email = user.Email,
                 Role = user.Role,
+                
                 PhoneNumber = user.PhoneNumber,
                 Location = user.Location,
+
                 ProfilePictureUrl = user.ProfilePictureUrl,
                 ResumeUrl = user.ResumeUrl,
                 Skills = user.Skills,
                 CompanyName = user.CompanyName,
                 CompanyDescription = user.CompanyDescription,
                 CompanyWebsite = user.CompanyWebsite
+
             };
+        
 
             return Ok(publicUser);
         }
@@ -182,7 +187,7 @@ namespace GetJob.Controllers
             existingUser.Location = userDto.Location;
             existingUser.ProfilePictureUrl = userDto.ProfilePictureUrl;
             existingUser.ResumeUrl = userDto.ResumeUrl;
-         
+            existingUser.Skills = userDto.Skills;
             existingUser.CompanyName = userDto.CompanyName;
             existingUser.CompanyDescription = userDto.CompanyDescription;
             existingUser.CompanyWebsite = userDto.CompanyWebsite;

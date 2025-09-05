@@ -17,21 +17,27 @@ namespace GetJob.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Configure the relationships using the single User entity
+            // User - Job (Employer)
             modelBuilder.Entity<User>()
                 .HasMany(u => u.Jobs)
                 .WithOne(j => j.Employer)
-                .HasForeignKey(j => j.EmployerId);
+                .HasForeignKey(j => j.EmployerId)
+                .OnDelete(DeleteBehavior.Restrict);
 
+            // User - Application (Jobseeker)
             modelBuilder.Entity<User>()
                 .HasMany(u => u.Applications)
                 .WithOne(a => a.Jobseeker)
-                .HasForeignKey(a => a.JobseekerId);
+                .HasForeignKey(a => a.JobseekerId)
+                .OnDelete(DeleteBehavior.Restrict);
 
+            // Job - Application
             modelBuilder.Entity<Application>()
                 .HasOne(a => a.Job)
                 .WithMany(j => j.Applications)
-                .HasForeignKey(a => a.JobId);
+                .HasForeignKey(a => a.JobId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
+
     }
 }

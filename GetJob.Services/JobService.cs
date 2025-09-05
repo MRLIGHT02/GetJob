@@ -1,68 +1,132 @@
 ﻿using GetJob.Data;
 using GetJob.Entities;
 using GetJob.ServiceContracts;
+using GetJob.ServiceContracts.DTOs;
 using Microsoft.EntityFrameworkCore;
 
 namespace GetJob.Services
 {
     public class JobService : IJobService
     {
-        private readonly JobPortalContext _jobPortalContext;
+        private readonly JobPortalContext _context;
 
-        public JobService(JobPortalContext jobPortalContext)
+        public JobService(JobPortalContext context)
         {
-            _jobPortalContext = jobPortalContext;
+            _context = context;
         }
 
-        public async Task AddJob(Job job)
+        public async Task<JobResponseDto> AddJobAsync(JobCreateDto jobDto)
         {
-            _jobPortalContext.Jobs.Add(job);
-            await _jobPortalContext.SaveChangesAsync();
+            // Pehle employer fetch kar
+            var employer = await _context.Users
+                .FirstOrDefaultAsync(u => u.UserId == jobDto.EmployerId && u.Role == UserRole.Employer && u.EmployerId>0);
 
-        }
-
-        public async Task DeleteJob(int id)
-        {
-            var job = _jobPortalContext.Jobs.Find(id);
-            if (job != null)
+            if (employer == null)
             {
-
-                _jobPortalContext.Jobs.Remove(job);
-                await _jobPortalContext.SaveChangesAsync();
+                throw new Exception("Invalid employer.");
             }
 
-            else
+            var job = new Job
             {
-                throw new Exception("Id Not Found");
-            }
+                Title = jobDto.Title,
+                Description = jobDto.Description,
+                Company = jobDto.Company,
+                Location = jobDto.Location,
+                Salary = jobDto.Salary,
+                EmployerId = employer.EmployerId!.Value,  // ✅ use EmployerId from User
+                PostedDate = DateTime.UtcNow
+            };
 
+            _context.Jobs.Add(job);
+            await _context.SaveChangesAsync();
+
+            return new JobResponseDto
+            {
+                JobId = job.JobId,
+                Title = job.Title,
+                Description = job.Description,
+                Company = job.Company,
+                Location = job.Location,
+                Salary = job.Salary,
+                PostedDate = job.PostedDate,
+                EmployerId = job.EmployerId,
+                EmployerName = employer.Name   // ✅ safe way
+            };
         }
 
-        public async Task<IEnumerable<Job>> GetAllJobs()
+
+        public async Task<JobResponseDto> UpdateJobAsync(JobUpdateDto jobDto)
         {
-            return await _jobPortalContext.Jobs.ToListAsync();
+            var job = await _context.Jobs.FindAsync(jobDto.JobId);
+            if (job == null) throw new Exception("Job not found");
+
+            job.Title = jobDto.Title;
+            job.Description = jobDto.Description;
+            job.Company = jobDto.Company;
+            job.Location = jobDto.Location;
+            job.Salary = jobDto.Salary;
+
+            await _context.SaveChangesAsync();
+
+            return new JobResponseDto
+            {
+                JobId = job.JobId,
+                Title = job.Title,
+                Description = job.Description,
+                Company = job.Company,
+                Location = job.Location,
+                Salary = job.Salary,
+                PostedDate = job.PostedDate,
+                EmployerId = job.EmployerId,
+                EmployerName = job.Employer?.Name ?? ""
+            };
         }
 
-        public async Task<Job> GetJobById(int id)
+        public async Task DeleteJobAsync(int id)
         {
+            var job = await _context.Jobs.FindAsync(id);
+            if (job == null) throw new Exception("Job not found");
 
-            var FoundJob = await _jobPortalContext.Jobs.FindAsync(id);
-            if (FoundJob != null)
-            {
-                return FoundJob;
-            }
-            else
-            {
-                throw new Exception("Job Not Found");
-            }
-
+            _context.Jobs.Remove(job);
+            await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateJob(Job job)
+        public async Task<JobResponseDto?> GetJobByIdAsync(int id)
         {
+            var job = await _context.Jobs.Include(j => j.Employer)
+                                         .FirstOrDefaultAsync(j => j.JobId == id);
+            if (job == null) return null;
 
-            _jobPortalContext.Entry(job).State = EntityState.Modified;
-            await _jobPortalContext.SaveChangesAsync();
+            return new JobResponseDto
+            {
+                JobId = job.JobId,
+                Title = job.Title,
+                Description = job.Description,
+                Company = job.Company,
+                Location = job.Location,
+                Salary = job.Salary,
+                PostedDate = job.PostedDate,
+                EmployerId = job.Employer.UserId,
+                EmployerName = job.Employer?.Name ?? ""
+            };
+        }
+
+        public async Task<IEnumerable<JobResponseDto>> GetAllJobsAsync()
+        {
+            return await _context.Jobs.Include(j => j.Employer)
+                .Select(job => new JobResponseDto
+                {
+                    JobId = job.JobId,
+                    Title = job.Title,
+                    Description = job.Description,
+                    Company = job.Company,
+                    Location = job.Location,
+                    Salary = job.Salary,
+                    PostedDate = job.PostedDate,
+                    EmployerId = job.Employer.UserId,
+                    EmployerName = job.Employer != null ? job.Employer.Name : ""
+                })
+                .ToListAsync();
         }
     }
 }
