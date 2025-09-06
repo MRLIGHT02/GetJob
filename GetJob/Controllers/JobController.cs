@@ -1,4 +1,5 @@
-﻿using GetJob.ServiceContracts;
+﻿using GetJob.Entities;
+using GetJob.ServiceContracts;
 using GetJob.ServiceContracts.DTOs;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,7 +20,7 @@ namespace GetJob.Controllers
         /// Get all jobs (visible to everyone)
         /// </summary>
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<JobResponseDto>>> GetAllJobs()
+        public async Task<ActionResult<IEnumerable<Job>>> GetAllJobs()
         {
             var jobs = await _jobService.GetAllJobsAsync();
             return Ok(jobs);
@@ -28,12 +29,28 @@ namespace GetJob.Controllers
         /// <summary>
         /// Get a job by Id
         /// </summary>
+      
         [HttpGet("{id}")]
-        public async Task<ActionResult<JobResponseDto>> GetJobById(int id)
+        [ProducesResponseType(typeof(JobResponseDto), 200)]
+        [ProducesResponseType(404)]
+        public async Task<IActionResult> GetJobById(int id)
         {
             var job = await _jobService.GetJobByIdAsync(id);
-            if (job == null) return NotFound("Job not found");
-            return Ok(job);
+            var GotJob = new JobResponseDto()
+            {
+                JobId = job.JobId,
+                Title = job.Title,
+                Description = job.Description,
+                Company = job.Company,
+                Location = job.Location,
+                Salary = job.Salary,
+                PostedDate = job.PostedDate,
+                EmployerId = job.EmployerId,
+                
+            };
+            return job == null
+                ? NotFound(new { Message = "Job not found" })
+                : Ok(job);
         }
 
         /// <summary>

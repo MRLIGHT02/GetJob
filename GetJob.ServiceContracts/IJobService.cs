@@ -8,7 +8,7 @@ namespace GetJob.ServiceContracts
         Task<JobResponseDto> AddJobAsync(JobCreateDto jobDto);
         Task<JobResponseDto> UpdateJobAsync(JobUpdateDto jobDto);
         Task DeleteJobAsync(int id);
-        Task<JobResponseDto?> GetJobByIdAsync(int id);
-        Task<IEnumerable<JobResponseDto>> GetAllJobsAsync();
+        Task<Job?> GetJobByIdAsync(int id);
+        Task<IEnumerable<Job>> GetAllJobsAsync();
     }
 }

@@ -19,7 +19,7 @@ namespace GetJob.Services
         {
             // Pehle employer fetch kar
             var employer = await _context.Users
-                .FirstOrDefaultAsync(u => u.UserId == jobDto.EmployerId && u.Role == UserRole.Employer && u.EmployerId>0);
+                .FirstOrDefaultAsync(u => u.UserId == jobDto.EmployerId && u.Role == UserRole.Employer && u.EmployerId > 0);
 
             if (employer == null)
             {
@@ -33,7 +33,7 @@ namespace GetJob.Services
                 Company = jobDto.Company,
                 Location = jobDto.Location,
                 Salary = jobDto.Salary,
-                EmployerId = employer.EmployerId!.Value,  // ✅ use EmployerId from User
+                EmployerId = employer.EmployerId!.Value, 
                 PostedDate = DateTime.UtcNow
             };
 
@@ -50,7 +50,7 @@ namespace GetJob.Services
                 Salary = job.Salary,
                 PostedDate = job.PostedDate,
                 EmployerId = job.EmployerId,
-                EmployerName = employer.Name   // ✅ safe way
+                EmployerName = employer.Name   
             };
         }
 
@@ -91,42 +91,16 @@ namespace GetJob.Services
             await _context.SaveChangesAsync();
         }
 
-        public async Task<JobResponseDto?> GetJobByIdAsync(int id)
+        public async Task<Job?> GetJobByIdAsync(int id)
         {
-            var job = await _context.Jobs.Include(j => j.Employer)
-                                         .FirstOrDefaultAsync(j => j.JobId == id);
-            if (job == null) return null;
 
-            return new JobResponseDto
-            {
-                JobId = job.JobId,
-                Title = job.Title,
-                Description = job.Description,
-                Company = job.Company,
-                Location = job.Location,
-                Salary = job.Salary,
-                PostedDate = job.PostedDate,
-                EmployerId = job.Employer.UserId,
-                EmployerName = job.Employer?.Name ?? ""
-            };
+            return await _context.Jobs.FindAsync(id);
+           
         }
 
-        public async Task<IEnumerable<JobResponseDto>> GetAllJobsAsync()
+        public async Task<IEnumerable<Job>> GetAllJobsAsync()
         {
-            return await _context.Jobs.Include(j => j.Employer)
-                .Select(job => new JobResponseDto
-                {
-                    JobId = job.JobId,
-                    Title = job.Title,
-                    Description = job.Description,
-                    Company = job.Company,
-                    Location = job.Location,
-                    Salary = job.Salary,
-                    PostedDate = job.PostedDate,
-                    EmployerId = job.Employer.UserId,
-                    EmployerName = job.Employer != null ? job.Employer.Name : ""
-                })
-                .ToListAsync();
+            return await _context.Jobs.ToListAsync();
         }
     }
 }
