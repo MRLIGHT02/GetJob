@@ -50,7 +50,7 @@ namespace GetJob.Controllers
             };
             return job == null
                 ? NotFound(new { Message = "Job not found" })
-                : Ok(job);
+                : Ok(GotJob);
         }
 
         /// <summary>
