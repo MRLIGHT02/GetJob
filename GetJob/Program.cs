@@ -1,17 +1,13 @@
-using GetJob.Services;
-using Scalar.AspNetCore;
 using GetJob.Data;
 using GetJob.ServiceContracts;
+using GetJob.Services;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Design;
-using Microsoft.EntityFrameworkCore.SqlServer;
-using GetJob.Mapping;
-using Microsoft.Extensions.DependencyInjection;
+using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 
-builder.Services.AddAutoMapper<MappingProfile>();
+
 // Add services to the container.
 
 builder.Services.AddControllers();

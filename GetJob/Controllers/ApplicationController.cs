@@ -20,7 +20,7 @@ namespace GetJob.Controllers
         }
 
         [HttpPost("apply")]
-        public async Task<Application> Apply([FromBody] ApplicationCreateDto dto) 
+        public async Task<ActionResult<Application>> Apply([FromBody] ApplicationCreateDto dto) 
         {
             var application = _mapper.Map<Application>(dto);
             var created = await _applicationService.ApplyAsync(application);
