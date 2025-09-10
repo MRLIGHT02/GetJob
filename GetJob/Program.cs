@@ -5,9 +5,13 @@ using GetJob.ServiceContracts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.EntityFrameworkCore.SqlServer;
+using GetJob.Mapping;
+using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
+builder.Services.AddAutoMapper<MappingProfile>();
 // Add services to the container.
 
 builder.Services.AddControllers();
