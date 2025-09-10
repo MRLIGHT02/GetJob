@@ -27,8 +27,28 @@ namespace GetJob.Services
         /// <returns>The application entity that was successfully saved.</returns>
         public async Task<Application> ApplyAsync(Application application)
         {
-            application.AppliedDate = DateTime.Now;
+            var jobExists = await _context.Jobs.AnyAsync(j => j.JobId == application.JobId);
+            if (!jobExists)
+            {
+                throw new ArgumentException("Invalid JobId. Job does not exist.");
+            }
+            var userExists = await _context.Users.AnyAsync(u => u.UserId == application.JobseekerId && u.Role == UserRole.Jobseeker);
+            if (!userExists)
+            {
+                throw new ArgumentException("Invalid JobSeekerId. User does not exist or is not a job seeker.");
+            }
+            var alreadyApplied = await _context.Applications
+       .AnyAsync(a => a.JobId == application.JobId && a.JobseekerId == application.JobseekerId);
+
+            if (alreadyApplied)
+            {
+                throw new InvalidOperationException("You have already applied for this job.");
+            }
+
+            application.AppliedDate = DateTime.UtcNow;
             application.Status = ApplicationStatus.Pending.ToString();
+
+            // 5. Save to DB
             await _context.Applications.AddAsync(application);
             await _context.SaveChangesAsync();
 
