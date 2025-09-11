@@ -66,8 +66,4 @@
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\GetJob.App.Shared\GetJob.App.Shared.csproj" />
-  </ItemGroup>
-
 </Project>
