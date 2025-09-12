@@ -2,11 +2,176 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="GetJob.App.Views.Pages.HomePage"
-             Title="NewPage1">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI! Home Page"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             Title="GETTOJOB"
+             BackgroundColor="#F3F4F6">
+    <!-- Light gray background for the entire page -->
+
+    <ScrollView>
+        <VerticalStackLayout Padding="25" Spacing="30">
+
+            <!-- Authentication Buttons Header -->
+            <Grid
+                  HorizontalOptions="FillAndExpand">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Button Text="Login"
+                        Grid.Column="1"
+                        Style="{StaticResource LoginButtonStyle}"
+                        HorizontalOptions="End" />
+                <Button Text="Register"
+                        Grid.Column="2"
+                        Style="{StaticResource RegisterButtonStyle}"
+                        Margin="10,0,0,0" />
+            </Grid>
+
+            <!-- Header / Hero Section -->
+            <VerticalStackLayout Spacing="5" HorizontalOptions="Center">
+                <Label Text="GETTOJOB"
+                       FontSize="38"
+                       FontAttributes="Bold"
+                       TextColor="#1E40AF"
+                       HorizontalOptions="Center" />
+                <Label Text="Find Your Dream Job Today!"
+                       FontSize="18"
+                       TextColor="#6B7280"
+                       HorizontalOptions="Center" />
+            </VerticalStackLayout>
+
+            <!-- Search Bar Section -->
+            <Frame BackgroundColor="#FFFFFF"
+                   CornerRadius="25"
+                   BorderColor="#D1D5DB"
+                   HasShadow="True"
+                   Padding="5">
+                <SearchBar Placeholder="Search for jobs, skills, or companies..."
+                           PlaceholderColor="#9CA3AF"
+                           BackgroundColor="Transparent"
+                           HeightRequest="45"
+                           FontSize="16" />
+            </Frame>
+
+            <!-- Popular Categories Section -->
+            <VerticalStackLayout Spacing="15">
+                <Label Text="Popular Categories"
+                       FontSize="22"
+                       FontAttributes="Bold"
+                       TextColor="#1F2937" />
+
+                <CollectionView ItemsLayout="HorizontalList" Margin="0,-5,0,0">
+                    <CollectionView.ItemsSource>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>IT AND Software</x:String>
+                            <x:String>Marketing</x:String>
+                            <x:String>Finance</x:String>
+                            <x:String>Design</x:String>
+                            <x:String>HR</x:String>
+                            <x:String>Sales</x:String>
+                            <x:String>Customer Service</x:String>
+                        </x:Array>
+                    </CollectionView.ItemsSource>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame Padding="12,8"
+                                   Margin="0,0,10,0"
+                                   BackgroundColor="#E0F2FE"
+                                   BorderColor="#90CDF4"
+                                   CornerRadius="20">
+                                <Label Text="{Binding}"
+                                       FontSize="14"
+                                       TextColor="#0A369A"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center" />
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+
+            <!-- Featured Jobs Section -->
+            <VerticalStackLayout Spacing="15">
+                <Grid ColumnDefinitions="*,Auto">
+                    <Label Text="Featured Jobs"
+                           FontSize="22"
+                           FontAttributes="Bold"
+                           TextColor="#1F2937"
+                           VerticalOptions="Center" />
+                    <Button Grid.Column="1"
+                            Text="View All"
+                            BackgroundColor="Transparent"
+                            TextColor="#3B82F6"
+                            FontAttributes="Bold"
+                            FontSize="14"
+                            VerticalOptions="Center"
+                            Padding="0" />
+                </Grid>
+
+                <!-- Job Listings -->
+                <Frame Style="{StaticResource JobListingFrameStyle}">
+                    <VerticalStackLayout Spacing="2">
+                        <Label Text="Software Engineer" FontAttributes="Bold" FontSize="18"/>
+                        <Label Text="Microsoft - Remote" FontSize="14" TextColor="#6B7280"/>
+                        <Label Text="Posted 2 days ago" FontSize="12" TextColor="#9CA3AF"/>
+                    </VerticalStackLayout>
+                </Frame>
+
+                <Frame Style="{StaticResource JobListingFrameStyle}">
+                    <VerticalStackLayout Spacing="2">
+                        <Label Text="UI/UX Designer" FontAttributes="Bold" FontSize="18"/>
+                        <Label Text="Adobe - New York" FontSize="14" TextColor="#6B7280"/>
+                        <Label Text="Posted 3 days ago" FontSize="12" TextColor="#9CA3AF"/>
+                    </VerticalStackLayout>
+                </Frame>
+
+                <Frame Style="{StaticResource JobListingFrameStyle}">
+                    <VerticalStackLayout Spacing="2">
+                        <Label Text="Data Scientist" FontAttributes="Bold" FontSize="18"/>
+                        <Label Text="Google - Mountain View" FontSize="14" TextColor="#6B7280"/>
+                        <Label Text="Posted 1 day ago" FontSize="12" TextColor="#9CA3AF"/>
+                    </VerticalStackLayout>
+                </Frame>
+
+                <Frame Style="{StaticResource JobListingFrameStyle}">
+                    <VerticalStackLayout Spacing="2">
+                        <Label Text="Product Manager" FontAttributes="Bold" FontSize="18"/>
+                        <Label Text="Stripe - Remote" FontSize="14" TextColor="#6B7280"/>
+                        <Label Text="Posted 4 days ago" FontSize="12" TextColor="#9CA3AF"/>
+                    </VerticalStackLayout>
+                </Frame>
+
+            </VerticalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
+
+    <!-- Page Resource Dictionary for Styles -->
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="JobListingFrameStyle" TargetType="Frame">
+                <Setter Property="CornerRadius" Value="15" />
+                <Setter Property="Padding" Value="20" />
+                <Setter Property="BackgroundColor" Value="White" />
+                <Setter Property="BorderColor" Value="#E5E7EB" />
+                <Setter Property="HasShadow" Value="False" />
+            </Style>
+            <Style x:Key="LoginButtonStyle" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="#3B82F6" />
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="CornerRadius" Value="20" />
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="Padding" Value="15,8" />
+            </Style>
+            <Style x:Key="RegisterButtonStyle" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="Transparent" />
+                <Setter Property="BorderColor" Value="#3B82F6" />
+                <Setter Property="TextColor" Value="#3B82F6" />
+                <Setter Property="CornerRadius" Value="20" />
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="Padding" Value="15,8" />
+                <Setter Property="BorderWidth" Value="1.5" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
 </ContentPage>
