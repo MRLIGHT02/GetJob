@@ -17,14 +17,15 @@
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <Button Text="Login"
+                <!--<Button Text="Login"
                         Grid.Column="1"
+                        Grid.Row="0"
                         Style="{StaticResource LoginButtonStyle}"
                         HorizontalOptions="End" />
                 <Button Text="Register"
                         Grid.Column="2"
                         Style="{StaticResource RegisterButtonStyle}"
-                        Margin="10,0,0,0" />
+                        Margin="10,0,0,0" />-->
             </Grid>
 
             <!-- Header / Hero Section -->

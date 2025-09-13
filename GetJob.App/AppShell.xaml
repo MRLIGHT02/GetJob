@@ -5,12 +5,16 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:views="clr-namespace:GetJob.App.Views.Pages"
     xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-
+    Shell.NavBarIsVisible="False"
    
     Title="GetJob.App">
     <Shell.Behaviors>
-        <mct:StatusBarBehavior StatusBarColor="{StaticResource DarkBack}" StatusBarStyle="LightContent" />
+        <mct:StatusBarBehavior StatusBarColor="{StaticResource Black}" StatusBarStyle="LightContent" />
     </Shell.Behaviors>
+    <ShellContent
+     Title="Register"
+     ContentTemplate="{DataTemplate views:RegisterPage}"
+     Route="RegisterPage" />
     <ShellContent
      Title="Login"
      ContentTemplate="{DataTemplate views:LoginPage}"
