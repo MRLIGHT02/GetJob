@@ -38,15 +38,15 @@
                    IsPassword="True"
                    ClearButtonVisibility="WhileEditing"/>
 
-            <!-- Register Button -->
             <Button Text="Register"
                     x:Name="RegisterButton"
                     BackgroundColor="#2563EB"
                     TextColor="White"
                     CornerRadius="8"
                     Clicked="RegisterButton_Clicked"/>
-
-            <!-- Already have account -->
+            
+            
+          
             <HorizontalStackLayout HorizontalOptions="Center">
                 <Label Text="Already have an account?" />
                 <Label Text="Login"

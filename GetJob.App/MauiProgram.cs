@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using CommunityToolkit.Maui;
+using GetJob.ServiceContracts.DTOs;
 
 
 namespace GetJob.App

@@ -1,3 +1,5 @@
+using GetJob.Dtos;
+
 namespace GetJob.App.Views.Pages;
 
 public partial class RegisterPage : ContentPage
@@ -16,6 +18,9 @@ public partial class RegisterPage : ContentPage
 
     private void RegisterButton_Clicked(object sender, EventArgs e)
     {
+        new UserRegistrationDto() { Name=NameEntry.Text
+        ,Email=EmailEntry.Text,Password=PasswordEntry.Text,Role=rol};
+
 
     }
 
