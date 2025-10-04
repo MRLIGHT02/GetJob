@@ -37,7 +37,17 @@
                    x:Name="ConfirmPasswordEntry"
                    IsPassword="True"
                    ClearButtonVisibility="WhileEditing"/>
+            <Label Text=""
+                   x:Name="checkPassword"
+                   TextColor="Red"
+                   ></Label>
+            <VerticalStackLayout Padding="20" Spacing="15">
 
+
+
+                <Picker x:Name="RolePicker"
+                Title="Choose a role" />
+            </VerticalStackLayout>
             <Button Text="Register"
                     x:Name="RegisterButton"
                     BackgroundColor="#2563EB"
