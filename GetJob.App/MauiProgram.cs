@@ -19,6 +19,12 @@ namespace GetJob.App
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
+            builder.Services.AddHttpClient("CareerLinker", config =>
+            {
+                var url = "https://fphng75t-7143.inc1.devtunnels.ms/";
+                config.BaseAddress= new Uri(url);
+            });
+
 #if DEBUG
     		builder.Logging.AddDebug();
 #endif

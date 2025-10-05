@@ -1,7 +1,6 @@
 using GetJob.Dtos;
 using GetJob.Entities;
 using System.Net.Http.Json;
-using System.Threading.Tasks;
 
 namespace GetJob.App.Views.Pages;
 
@@ -9,11 +8,12 @@ public partial class RegisterPage : ContentPage
 {
 
     private readonly HttpClient _httpClient;
-	public RegisterPage()
-	{
-		InitializeComponent();
-        RolePicker.ItemsSource = Enum.GetNames(typeof(UserRole));
-        _httpClient = new HttpClient { BaseAddress = new Uri("https://192.168.1.33:7143/") };
+    public RegisterPage(IHttpClientFactory factory)
+    {
+        _httpClient = factory.CreateClient("CareerLinker");
+        InitializeComponent();
+  
+
     }
 
 
@@ -21,9 +21,56 @@ public partial class RegisterPage : ContentPage
 
     private async void TapGestureRecognizer_Tapped_1(object sender, TappedEventArgs e)
     {
-        await Navigation.PushAsync(new LoginPage());
-        
+        await Shell.Current.GoToAsync(nameof(LoginPage));
+
     }
+
+    private void OnRegister_Clicked(object sender, EventArgs e)
+    {
+        try
+        {
+
+            var data = new UserRegistrationDto()
+            {
+                Name = NameEntry.Text
+             ,
+                Email = EmailEntry.Text,
+                Password = PasswordEntry.Text,
+               
+            };
+
+            if (data.Password != ConfirmPasswordEntry.Text)
+            {
+                checkPassword.Text = "Password does not matched";
+            }
+            else
+            {
+                checkPassword.Text = "";
+                bool result = await RegisterAsync(data);
+                if (result)
+                {
+                    await DisplayAlert("Success", "Registration successful!", "OK");
+                    await Shell.Current.GoToAsync(nameof(LoginPage));
+                }
+                else
+                {
+
+                    await DisplayAlert("Error", "Registration failed!", "OK");
+                }
+            }
+        }
+        catch (InvalidNavigationException ex)
+        {
+            await DisplayAlert("Route Failed", ex.Message, "Ok");
+        }
+
+    }
+
+    private void OnSignIn_Clicked(object sender, EventArgs e)
+    {
+
+    }
+
 
     public async Task<bool> RegisterAsync(UserRegistrationDto dto)
     {
@@ -43,35 +90,13 @@ public partial class RegisterPage : ContentPage
             return false;
         }
     }
+
+
+    //private async void RegisterButton_Clicked(object sender, EventArgs e)
+    //{
     
 
-    private async void RegisterButton_Clicked(object sender, EventArgs e)
-    {
-       var data= new UserRegistrationDto() { Name=NameEntry.Text
-        ,Email=EmailEntry.Text,Password=PasswordEntry.Text,Role=RolePicker.SelectedItem?.ToString()};
-
-        if (data.Password != ConfirmPasswordEntry.Text)
-        {
-            checkPassword.Text = "Password does not matched";
-        }
-        else
-        {
-            checkPassword.Text = "";
-            bool result =await RegisterAsync(data);
-            if (result)
-            {
-               await Shell.Current.GoToAsync(nameof(LoginPage));
-               await DisplayAlert("Success", "Registration successful!", "OK");
-            }
-            else
-            {
-
-                await DisplayAlert("Error", "Registration failed!", "OK");
-            }
-        }
-
-        
-    }
+    //}
 
 
 

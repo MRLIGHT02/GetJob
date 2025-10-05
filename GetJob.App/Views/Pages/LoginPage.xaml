@@ -3,93 +3,115 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="GetJob.App.Views.Pages.LoginPage"
              Title="Login"
-             BackgroundColor="#F3F4F6">
+             BackgroundColor="#F4F7FB">
+    <!-- Very light background color -->
 
-    <ScrollView>
-        <VerticalStackLayout Padding="25" Spacing="30" VerticalOptions="CenterAndExpand">
+    <!-- Main Grid to center the login card -->
+    <Grid Padding="20">
+        <Frame CornerRadius="20"
+               HasShadow="True"
+               VerticalOptions="CenterAndExpand"
+               HorizontalOptions="Center"
+               Padding="30"
+               BackgroundColor="White"
+               WidthRequest="350">
+            <!-- Set a max width for desktop/tablet views -->
 
-            <!-- App Title/Logo -->
-            <Label Text="Welcome Back!"
-                   FontSize="32"
-                   FontAttributes="Bold"
-                   TextColor="#1F2937"
-                   HorizontalOptions="Center" />
+            <StackLayout Spacing="25"
+                         VerticalOptions="Center">
 
-            <!-- Subtitle -->
-            <Label Text="Sign in to find your next great opportunity."
-                   FontSize="16"
-                   TextColor="#6B7280"
-                   HorizontalOptions="Center"
-                   Margin="0,-10,0,0" />
+                <!-- 1. Logo/Icon Section -->
+                <StackLayout Orientation="Vertical"
+                             HorizontalOptions="Center"
+                             Spacing="10">
+                    <!-- Placeholder for the circular 'C' logo. In a real app, this would be an Image. -->
+                    <Frame HeightRequest="60"
+                           WidthRequest="60"
+                           CornerRadius="30"
+                           BackgroundColor="#4285F4"
+                           HorizontalOptions="Center"
+                           Padding="0">
+                        <!-- Inside the circle, a white C or icon -->
+                        <Label Text="C"
+                               FontSize="30"
+                               FontAttributes="Bold"
+                               TextColor="White"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center" />
+                    </Frame>
 
-            <!-- Login Form -->
-            <VerticalStackLayout Spacing="15">
-                <Frame Style="{StaticResource InputFrameStyle}">
-                    <Entry Placeholder="Email or Username"
-                           PlaceholderColor="#9CA3AF"
-                           FontSize="16"
+                    <!-- App Name Title -->
+                    <Label Text="CareerLinker"
+                           FontSize="Title"
+                           FontAttributes="Bold"
+                           HorizontalOptions="Center"
                            TextColor="#1F2937" />
-                </Frame>
+                </StackLayout>
 
-                <Frame Style="{StaticResource InputFrameStyle}">
-                    <Entry Placeholder="Password"
-                           PlaceholderColor="#9CA3AF"
-                           IsPassword="True"
-                           FontSize="16"
-                           TextColor="#1F2937" />
-                </Frame>
+                <!-- Separator (optional, for visual break) -->
+                <BoxView HeightRequest="1" Color="#E5E7EB" Margin="0, 10" />
 
-                <Label Text="Forgot Password?"
-                       FontSize="14"
-                       TextColor="#3B82F6"
-                       HorizontalOptions="End"
-                       TextDecorations="Underline">
-                    <Label.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
-                    </Label.GestureRecognizers>
-                </Label>
+                <!-- 2. Input Fields -->
+                <StackLayout Spacing="15">
+                    <!-- Email / Phone Entry -->
+                    <Frame Padding="15, 0"
+                           CornerRadius="10"
+                           BorderColor="#E5E7EB"
+                           HasShadow="False">
+                        <Entry Placeholder="Email / Phone"
+                               PlaceholderColor="#9CA3AF"
+                               Keyboard="Email" />
+                    </Frame>
 
-                <Button Text="Login"
-                        Style="{StaticResource LoginButtonStyle}" />
-            </VerticalStackLayout>
+                    <!-- Password Entry -->
+                    <Frame Padding="15, 0"
+                           CornerRadius="10"
+                           BorderColor="#E5E7EB"
+                           HasShadow="False">
+                        <Entry Placeholder="Password"
+                               PlaceholderColor="#9CA3AF"
+                               IsPassword="True" />
+                    </Frame>
+                </StackLayout>
 
-            <!-- Register Option -->
-            <HorizontalStackLayout HorizontalOptions="Center" Spacing="5" Margin="0,20,0,0">
-                <Label Text="Don't have an account?"
-                       FontSize="14"
-                       TextColor="#6B7280" />
-                <Label Text="Register"
-                       FontSize="14"
-                       TextColor="#3B82F6"
-                       FontAttributes="Bold"
-                       TextDecorations="Underline">
-                    <Label.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped_1" />
-                    </Label.GestureRecognizers>
-                </Label>
-            </HorizontalStackLayout>
-        </VerticalStackLayout>
-    </ScrollView>
+                <!-- 3. Continue Button -->
+                <Button Text="Continue"
+                        BackgroundColor="#4285F4"
+                        TextColor="White"
+                        CornerRadius="10"
+                        HeightRequest="50"
+                        FontSize="Medium"
+                        FontAttributes="Bold"
+                        Clicked="Button_Clicked" />
+                <!-- Add C# event handler reference -->
 
-    <!-- Page Resource Dictionary for Styles -->
-    <ContentPage.Resources>
-        <ResourceDictionary>
-            <Style x:Key="InputFrameStyle" TargetType="Frame">
-                <Setter Property="CornerRadius" Value="10" />
-                <Setter Property="Padding" Value="5" />
-                <Setter Property="BackgroundColor" Value="#FFFFFF" />
-                <Setter Property="BorderColor" Value="#D1D5DB" />
-                <Setter Property="HasShadow" Value="False" />
-            </Style>
-            <Style x:Key="LoginButtonStyle" TargetType="Button">
-                <Setter Property="BackgroundColor" Value="#3B82F6" />
-                <Setter Property="TextColor" Value="White" />
-                <Setter Property="CornerRadius" Value="10" />
-                <Setter Property="FontSize" Value="18" />
-                <Setter Property="Padding" Value="20,15" />
-                <Setter Property="Margin" Value="0,10,0,0" />
-            </Style>
-        </ResourceDictionary>
-    </ContentPage.Resources>
+                <!-- 4. Sign Up Link -->
+                <StackLayout Orientation="Horizontal"
+                             HorizontalOptions="Center"
+                             Spacing="5"
+                             Margin="0, 10, 0, 0">
+
+                    <Label Text="Don't have account?"
+                           TextColor="#4B5563"
+                           FontSize="Small"
+                           VerticalTextAlignment="Center" />
+
+                    <!-- Using a Button styled as a link for better touch target/interaction -->
+                    <Button Text="Sign Up"
+                            TextColor="#4285F4"
+                            FontSize="Small"
+                            FontAttributes="Bold"
+                            BackgroundColor="Transparent"
+                            Padding="0"
+                            HeightRequest="30"
+                            VerticalOptions="Center"
+                            Clicked="Button_Clicked_1" />
+
+                </StackLayout>
+
+            </StackLayout>
+
+        </Frame>
+    </Grid>
 
 </ContentPage>
