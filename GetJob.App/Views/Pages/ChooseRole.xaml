@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="GetJob.App.Views.Pages.ChooseRole"
+             xmlns:models="clr-namespace:GetJob.Entities;assembly=GetJob.Entities"
+             Title="ChooseRole">
+    <VerticalStackLayout>
+
+        <Label Text="To get started, please tell us who you are:" 
+                   FontSize="18" 
+                   TextColor="#4b5563"
+                   HorizontalTextAlignment="Center"
+                   Margin="0, 0, 0, 10" />
+        <RadioButton
+            x:Name="JobseekerRadio"
+            Content="JobSeeker" Value="{x:Static models:UserRole.Jobseeker}"
+                       GroupName="UserRoleGroup"
+                             IsChecked="True"                             FontSize="18"
+                             TextColor="#1f2937"
+                             Padding="10"
+                             BorderColor="#3b82f6"
+                             BorderWidth="1"
+                             CornerRadius="8"></RadioButton>
+        <RadioButton
+            x:Name="EmployerRadio"
+            Content="Employer" Value="{x:Static models:UserRole.Employer}"
+                      GroupName="UserRoleGroup"
+                             FontSize="18"
+                             TextColor="#1f2937"
+                             Padding="10"
+                             BorderColor="#10b981"
+                             BorderWidth="1"
+                             CornerRadius="8" ></RadioButton>
+        <RadioButton
+            x:Name="AdminRadio"
+           Content="Admin" Value="{x:Static models:UserRole.Admin}"
+                      GroupName="UserRoleGroup"
+                             FontSize="18"
+                             TextColor="Wheat"
+                             Padding="10"
+                             BorderColor="SlateGrey"
+                             BorderWidth="1"
+                             CornerRadius="8" 
+                     ></RadioButton>
+    </VerticalStackLayout>
+</ContentPage>

@@ -104,7 +104,12 @@
          CornerRadius="10"
          BorderColor="#E5E7EB"
          HasShadow="False">
-                        
+                        <Label Text=""
+                               x:Name="checkPassword"
+                               BackgroundColor="Transparent"
+                               TextColor="Red">
+                            
+                        </Label>
                     </Frame>
 
                 </StackLayout>

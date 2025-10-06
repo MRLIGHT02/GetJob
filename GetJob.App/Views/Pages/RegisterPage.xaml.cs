@@ -25,7 +25,7 @@ public partial class RegisterPage : ContentPage
 
     }
 
-    private void OnRegister_Clicked(object sender, EventArgs e)
+    private async void OnRegister_Clicked(object sender, EventArgs e)
     {
         try
         {
