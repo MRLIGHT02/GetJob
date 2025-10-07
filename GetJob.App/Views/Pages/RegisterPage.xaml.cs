@@ -1,12 +1,15 @@
+using AndroidX.ConstraintLayout.Motion.Utils;
 using GetJob.Dtos;
 using GetJob.Entities;
+using System.Data;
 using System.Net.Http.Json;
 
 namespace GetJob.App.Views.Pages;
 
+[QueryProperty(nameof(Role), "role")]
 public partial class RegisterPage : ContentPage
 {
-
+    private UserRole _role;
     private readonly HttpClient _httpClient;
     public RegisterPage(IHttpClientFactory factory)
     {
@@ -17,7 +20,16 @@ public partial class RegisterPage : ContentPage
     }
 
 
-
+    public string Role
+    {
+        set
+        {
+            if (Enum.TryParse(value, out UserRole parsedRole))
+            {
+                _role = parsedRole;
+            }
+        }
+    }
 
     private async void TapGestureRecognizer_Tapped_1(object sender, TappedEventArgs e)
     {
@@ -32,12 +44,14 @@ public partial class RegisterPage : ContentPage
 
             var data = new UserRegistrationDto()
             {
-                Name = NameEntry.Text
-             ,
+                Name = NameEntry.Text,
+
                 Email = EmailEntry.Text,
                 Password = PasswordEntry.Text,
-               
+                Role = _role
+
             };
+            
 
             if (data.Password != ConfirmPasswordEntry.Text)
             {
@@ -50,7 +64,7 @@ public partial class RegisterPage : ContentPage
                 if (result)
                 {
                     await DisplayAlert("Success", "Registration successful!", "OK");
-                    await Shell.Current.GoToAsync(nameof(LoginPage));
+                    await Shell.Current.GoToAsync(nameof(ChooseRole));
                 }
                 else
                 {

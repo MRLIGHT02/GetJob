@@ -1,46 +1,110 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="GetJob.App.Views.Pages.ChooseRole"
-             xmlns:models="clr-namespace:GetJob.Entities;assembly=GetJob.Entities"
-             Title="ChooseRole">
-    <VerticalStackLayout>
 
-        <Label Text="To get started, please tell us who you are:" 
-                   FontSize="18" 
-                   TextColor="#4b5563"
-                   HorizontalTextAlignment="Center"
-                   Margin="0, 0, 0, 10" />
-        <RadioButton
-            x:Name="JobseekerRadio"
-            Content="JobSeeker" Value="{x:Static models:UserRole.Jobseeker}"
-                       GroupName="UserRoleGroup"
-                             IsChecked="True"                             FontSize="18"
-                             TextColor="#1f2937"
-                             Padding="10"
-                             BorderColor="#3b82f6"
-                             BorderWidth="1"
-                             CornerRadius="8"></RadioButton>
-        <RadioButton
-            x:Name="EmployerRadio"
-            Content="Employer" Value="{x:Static models:UserRole.Employer}"
-                      GroupName="UserRoleGroup"
-                             FontSize="18"
-                             TextColor="#1f2937"
-                             Padding="10"
-                             BorderColor="#10b981"
-                             BorderWidth="1"
-                             CornerRadius="8" ></RadioButton>
-        <RadioButton
-            x:Name="AdminRadio"
-           Content="Admin" Value="{x:Static models:UserRole.Admin}"
-                      GroupName="UserRoleGroup"
-                             FontSize="18"
-                             TextColor="Wheat"
-                             Padding="10"
-                             BorderColor="SlateGrey"
-                             BorderWidth="1"
-                             CornerRadius="8" 
-                     ></RadioButton>
-    </VerticalStackLayout>
+<ContentPage
+    x:Class="GetJob.App.Views.Pages.ChooseRole"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:models="clr-namespace:GetJob.Entities;assembly=GetJob.Entities"
+    Title="ChooseRole"
+    BackgroundColor="#f7f7f7">
+
+    <!--  Define a Style to apply visual feedback for large, touch-friendly radio buttons  -->
+    <ContentPage.Resources>
+        <Style TargetType="RadioButton">
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="TextColor" Value="#1f2937" />
+            <Setter Property="Padding" Value="20" />
+            <Setter Property="CornerRadius" Value="12" />
+            <Setter Property="BorderColor" Value="#d1d5db" />
+            <Setter Property="BorderWidth" Value="2" />
+            <Setter Property="Margin" Value="0, 8" />
+
+            <!--  Visual States: Highlight the selected choice for clear mobile feedback  -->
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup Name="CheckedStates">
+                        <!--  Default state  -->
+                        <VisualState Name="Unchecked">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor" Value="White" />
+                            </VisualState.Setters>
+                        </VisualState>
+                        <!--  Highlight when selected  -->
+                        <VisualState Name="Checked">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor" Value="#e0f2fe" />
+                                <!--  Light Blue background  -->
+                                <Setter Property="BorderColor" Value="#3b82f6" />
+                                <!--  Primary Blue border  -->
+                                <Setter Property="FontAttributes" Value="Bold" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+    </ContentPage.Resources>
+
+    <!--  Main Grid layout: Ensures title/options are scrollable, and the button is fixed at the bottom  -->
+    <Grid Margin="0" RowDefinitions="*, Auto">
+        <!--  Scrollable Content Area (Grid Row 0)  -->
+        <ScrollView Grid.Row="0">
+            <VerticalStackLayout
+                Padding="30,40,30,30"
+                Spacing="30"
+                VerticalOptions="StartAndExpand">
+
+                <!--  Title and Instructions  -->
+                <Label
+                    FontAttributes="Bold"
+                    FontSize="30"
+                    HorizontalTextAlignment="Center"
+                    Text="Welcome to GetJob!"
+                    TextColor="#1f2937" />
+
+                <Label
+                    FontSize="16"
+                    HorizontalTextAlignment="Center"
+                    Text="To get started, please tell us who you are:"
+                    TextColor="#4b5563" />
+
+                <!--  Role Selection using RadioButtons  -->
+                <VerticalStackLayout Spacing="10">
+
+                    <!--  Jobseeker Role RadioButton  -->
+                    <RadioButton
+                        x:Name="JobseekerRadio"
+                        CheckedChanged="RoleRadioCheckedChanged"
+                        Content="Job Seeker (Looking for work)"
+                        GroupName="UserRoleGroup"
+                        IsChecked="True"
+                        Value="{x:Static models:UserRole.Jobseeker}" />
+
+                    <!--  Employer Role RadioButton  -->
+                    <RadioButton
+                        x:Name="EmployerRadio"
+                        CheckedChanged="RoleRadioCheckedChanged"
+                        Content="Employer (Hiring talent)"
+                        GroupName="UserRoleGroup"
+                        Value="{x:Static models:UserRole.Employer}" />
+
+                    <!--  Admin Role RadioButton - Adjusted TextColor for better contrast  -->
+                    <RadioButton
+                        x:Name="AdminRadio"
+                        BorderColor="#9ca3af"
+                        CheckedChanged="RoleRadioCheckedChanged"
+                        Content="Admin (Site Administrator)"
+                        GroupName="UserRoleGroup"
+                        TextColor="#6b7280"
+                        Value="{x:Static models:UserRole.Admin}" />
+
+                </VerticalStackLayout>
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+
+
+    </Grid>
+
 </ContentPage>
