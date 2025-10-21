@@ -1,6 +1,6 @@
 using AutoMapper;
 using GetJob.Data;
-using GetJob.Mapping;
+
 using GetJob.ServiceContracts;
 using GetJob.Services;
 using Microsoft.EntityFrameworkCore;

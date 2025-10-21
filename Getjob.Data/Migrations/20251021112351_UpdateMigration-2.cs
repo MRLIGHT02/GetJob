@@ -5,16 +5,18 @@
 namespace GetJob.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class UpdatedRemoved : Migration
+    public partial class UpdateMigration2 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+
         }
     }
 }

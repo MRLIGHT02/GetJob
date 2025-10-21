@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
 
 namespace GetJob.Entites
 {
@@ -22,7 +23,7 @@ namespace GetJob.Entites
         public string? CompanyWebsite { get; set; }   // Employer Website
 
         // Navigation Properties
-        public ICollection<Jobs>? Job { get; set; }
+        public ICollection<Job>? Jobs { get; set; }
         public ICollection<Application>? Applications { get; set; }
     }
 }
