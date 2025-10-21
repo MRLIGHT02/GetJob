@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "GetJob.Data": {
+      "commandName": "Project"
+    },
+    "Profile 1": {
+      "commandName": "Executable"
+    }
+  }
+}

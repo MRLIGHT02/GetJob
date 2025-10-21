@@ -45,4 +45,5 @@ namespace GetJob.ServiceContracts.DTOs
         public int JobseekerId { get; set; }
         public string? JobseekerName { get; set; }
     }
+
 }
