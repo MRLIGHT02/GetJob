@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GetJob.ServiceContracts", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GetJob", "GetJob\GetJob.csproj", "{4BD9E680-009D-44AD-9E22-209F8E388FE2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GetJob.AutoMapper", "GetJob.AutoMapper\GetJob.AutoMapper.csproj", "{F243CDCA-049C-4CE2-A186-EBA268694549}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{4BD9E680-009D-44AD-9E22-209F8E388FE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4BD9E680-009D-44AD-9E22-209F8E388FE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4BD9E680-009D-44AD-9E22-209F8E388FE2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F243CDCA-049C-4CE2-A186-EBA268694549}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F243CDCA-049C-4CE2-A186-EBA268694549}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F243CDCA-049C-4CE2-A186-EBA268694549}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F243CDCA-049C-4CE2-A186-EBA268694549}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

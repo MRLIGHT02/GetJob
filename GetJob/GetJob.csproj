@@ -23,6 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\GetJob.AutoMapper\GetJob.AutoMapper.csproj" />
     <ProjectReference Include="..\Getjob.Data\GetJob.Data.csproj" />
     <ProjectReference Include="..\GetJob.Services\GetJob.Services.csproj" />
   </ItemGroup>
