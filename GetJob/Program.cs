@@ -4,6 +4,7 @@ using GetJob.Data;
 using GetJob.ServiceContracts;
 using GetJob.Services;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
