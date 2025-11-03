@@ -87,10 +87,11 @@ namespace GetJob.Controllers
         }
 
         // ✅ PUT: api/Application/{id}/status
+       
         [HttpPut("{id}/status")]
-        public async Task<IActionResult> UpdateApplicationStatus(int id, [FromBody] string status)
+        public async Task<IActionResult> UpdateApplicationStatus(int id, [FromBody] ApplicationStatusUpdateDto dto)
         {
-            var success = await _applicationService.UpdateStatusAsync(id, status);
+            var success = await _applicationService.UpdateStatusAsync(id, dto.Status);
             if (!success)
                 return NotFound(new { message = "Application not found." });
 

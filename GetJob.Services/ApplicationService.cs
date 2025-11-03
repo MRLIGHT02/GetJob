@@ -150,10 +150,12 @@ namespace GetJob.Services
         {
             var application = await _context.Applications.FindAsync(id);
             if (application == null)
-            {
                 return false;
-            }
+
             application.Status = status;
+            application.UpdatedDate = DateTime.UtcNow;
+
+            await _context.SaveChangesAsync(); // 🔥 this line commits the update
             return true;
         }
         #endregion
