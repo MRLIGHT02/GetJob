@@ -2,13 +2,80 @@
 @using CareerLinker.Shared.Services
 @inject IFormFactor FormFactor
 
-<PageTitle>Home</PageTitle>
+<PageTitle>CareerLinker | Find Your Dream Job</PageTitle>
 
-<h1>Hello, world!</h1>
+<div class="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 text-gray-800">
+    <!-- Hero Section -->
+    <section class="mx-auto max-w-6xl px-6 py-20 text-center">
+        <h1 class="mb-4 bg-gradient-to-r from-rose-600 to-pink-500 bg-clip-text text-5xl font-extrabold text-transparent">
+            Find Your Dream Job with CareerLinker 💼
+        </h1>
+        <p class="mb-8 text-lg text-gray-600">
+            Discover thousands of opportunities tailored to your skills and goals — wherever you are.
+        </p>
 
-Welcome to your new app running on <em>@factor</em> using <em>@platform</em>.
+        <!-- Search Bar -->
+        <div class="flex flex-col items-center justify-center gap-3 md:flex-row md:gap-4">
+            <input type="text" placeholder="Job title or keyword"
+                   class="w-full rounded-lg border border-gray-300 p-3 focus:ring-2 focus:ring-rose-400 focus:outline-none md:w-80" />
+            <input type="text" placeholder="Location"
+                   class="w-full rounded-lg border border-gray-300 p-3 focus:ring-2 focus:ring-rose-400 focus:outline-none md:w-60" />
+            <input type="text" placeholder="Exprience"
+                   class="w-full rounded-lg border border-gray-300 p-3 focus:ring-2 focus:ring-rose-400 focus:outline-none md:w-60" />
+            <button class="rounded-lg bg-rose-600 px-6 py-3 text-white transition hover:bg-rose-700">
+                Search Jobs
+            </button>
+        </div>
+    </section>
+
+    <!-- Featured Jobs Section -->
+    <section class="mx-auto max-w-6xl px-6 py-12">
+        <h2 class="mb-6 text-3xl font-bold text-gray-800">🔥 Featured Jobs</h2>
+
+        <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+            @foreach (var job in FeaturedJobs)
+            {
+                <div class="rounded-xl border border-gray-100 bg-white p-6 shadow-md transition hover:shadow-lg">
+                    <h3 class="mb-2 text-xl font-semibold text-rose-600">@job.Title</h3>
+                    <p class="text-gray-700">@job.CompanyName</p>
+                    <p class="mb-4 text-sm text-gray-500">@job.Location</p>
+                    <span class="inline-block rounded-full bg-green-100 px-3 py-1 text-xs font-semibold text-green-800">
+                        @job.Type
+                    </span>
+
+                    <button class="mt-4 w-full rounded-lg bg-rose-600 py-2 text-white transition hover:bg-rose-700">
+                        Apply Now
+                    </button>
+                </div>
+            }
+        </div>
+    </section>
+
+    <!-- Platform Info Footer -->
+    <footer class="border-t border-gray-200 py-6 text-center text-gray-500">
+      
+    </footer>
+</div>
 
 @code {
     private string factor => FormFactor.GetFormFactor();
     private string platform => FormFactor.GetPlatform();
+
+    private List<Job> FeaturedJobs = new()
+    {
+        new Job { Title = "Full Stack Developer", CompanyName = "TechNova", Location = "Remote", Type = "Full-Time" },
+        new Job { Title = "UI/UX Designer", CompanyName = "PixelPerfect", Location = "Bangalore", Type = "Contract" },
+        new Job { Title = "Mobile App Engineer", CompanyName = "AppFlow", Location = "Delhi", Type = "Internship" },
+        new Job { Title = "Data Analyst", CompanyName = "InsightIQ", Location = "Pune", Type = "Full-Time" },
+        new Job { Title = "DevOps Engineer", CompanyName = "CloudLink", Location = "Chennai", Type = "Full-Time" },
+        new Job { Title = "Backend Developer", CompanyName = "BinaryPulse", Location = "Hyderabad", Type = "Remote" }
+    };
+
+    public class Job
+    {
+        public string Title { get; set; }
+        public string CompanyName { get; set; }
+        public string Location { get; set; }
+        public string Type { get; set; }
+    }
 }

@@ -1,0 +1,17 @@
+{
+  "name": "careerlinker.shared",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build:css": "tailwindcss -i ./wwwroot/input.css -o ./wwwroot/app.css --minify",
+    "watch:css": "tailwindcss -i ./wwwroot/input.css -o ./wwwroot/app.css --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.1.16",
+    "tailwindcss": "^4.1.16"
+  }
+}
