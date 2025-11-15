@@ -1,10 +1,16 @@
-<Project Sdk="Microsoft.NET.Sdk.Razor">
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\Images\careerlinker-logo.png" />
+    <None Include="wwwroot\Images\carrerlinkerpnglogo.png" />
+    <None Include="wwwroot\Images\favicon.png" />
+  </ItemGroup>
 
   <ItemGroup>
     <SupportedPlatform Include="browser" />

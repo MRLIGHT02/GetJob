@@ -1,0 +1,128 @@
+﻿@page "/Register"
+
+<div class="min-h-screen flex items-center justify-center bg-gray-50 px-4 py-12">
+
+    <div class="w-full max-w-4xl bg-white shadow-xl rounded-2xl grid grid-cols-1 md:grid-cols-2 overflow-hidden">
+
+        <!-- LEFT Illustration -->
+        <div class="hidden md:flex items-center justify-center p-12 text-white shadow-inner"
+             style="background:oklch(85% 0.05 307.174);">
+            <div class="text-center">
+                <img src="/Images/carrerlinkerpnglogo.png"
+                     class="w-96 h-auto mx-auto mb-8" />
+
+                <!-- Bigger, cleaner image -->
+
+                <h2 class="text-4xl font-extrabold mb-4 tracking-wide text-purple-800">
+                    Welcome to CareerLinker
+                </h2>
+
+                <p class="text-sm max-w-xs mx-auto leading-relaxed text-purple-900/70">
+                    Create your account and connect with top employers instantly.
+                </p>
+
+            </div>
+        </div>
+
+
+
+        <!-- RIGHT: Register Form -->
+        <div class="p-8 md:p-10">
+
+            <!-- Login Link -->
+            <div class="text-sm text-right text-gray-600 mb-6">
+                Already have an account?
+                <a href="/login" class="text-purple-600 font-semibold hover:underline">
+                    Login
+                </a>
+            </div>
+
+            <h1 class="text-3xl font-extrabold text-gray-900 mb-8">
+                Create Your Account
+            </h1>
+
+            <!-- Social Buttons -->
+            <div class="space-y-3 mb-8">
+
+                <button class="w-full flex items-center justify-center gap-3 border rounded-lg py-2.5
+                               bg-white hover:bg-gray-50 transition text-gray-700 text-[15px] shadow-sm">
+                    <img src="https://www.svgrepo.com/download/303108/google-icon-logo.svg"
+                         class="w-5 h-5" />
+                    Continue with Google
+                </button>
+
+                <button class="w-full flex items-center justify-center gap-3 border border-blue-600 rounded-lg py-2.5
+                               bg-blue-600 hover:bg-blue-700 transition text-white text-[15px] shadow-sm">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-5 h-5"
+                         viewBox="0 0 448 512">
+                        <path d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8A53.79 53.79 0 0 1 107.6 53.8c0 29.7-24.1 54.3-53.81 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.3-48.29-79.3-48.29 0-55.69 37.7-55.69 76.6V448H158.6V148.9h89V189h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.32 61.9 111.32 142.3V448z" />
+                    </svg>
+                    Continue with LinkedIn
+                </button>
+
+            </div>
+
+            <!-- Divider -->
+            <div class="flex items-center mb-6 text-xs text-gray-400">
+                <div class="flex-1 border-t"></div>
+                <span class="mx-3">OR</span>
+                <div class="flex-1 border-t"></div>
+            </div>
+
+            <!-- Form -->
+            <form class="space-y-5">
+
+                <div>
+                    <label class="text-sm text-gray-700 mb-1 block">Full Name</label>
+                    <input type="text"
+                           class="w-full border rounded-lg p-3 text-sm focus:ring-2
+                                  focus:ring-purple-500 focus:outline-none"
+                           placeholder="Enter full name" />
+                </div>
+
+                <div>
+                    <label class="text-sm text-gray-700 mb-1 block">Email</label>
+                    <input type="email"
+                           class="w-full border rounded-lg p-3 text-sm focus:ring-2
+                                  focus:ring-purple-500 focus:outline-none"
+                           placeholder="Enter email" />
+                </div>
+
+                <div class="relative">
+                    <label class="text-sm text-gray-700 mb-1 block">Password</label>
+                    <input type="password"
+                           class="w-full border rounded-lg p-3 text-sm focus:ring-2
+                                  focus:ring-purple-500 focus:outline-none"
+                           placeholder="Min 8 characters" />
+                </div>
+
+                <button disabled
+                        class="w-full bg-purple-400 text-white font-semibold py-3 rounded-lg text-sm
+                               cursor-not-allowed shadow">
+                    Register
+                </button>
+
+                <p class="text-xs text-gray-500 text-center">
+                    By continuing, you agree to our
+                    <a href="#" class="text-purple-600 font-medium">Terms</a> and
+                    <a href="#" class="text-purple-600 font-medium">Privacy Policy</a>.
+                </p>
+
+            </form>
+
+            <!-- App buttons -->
+            <div class="mt-10 text-center">
+                <p class="text-sm font-medium text-gray-600 mb-4">Download our mobile app</p>
+
+                <div class="flex justify-center gap-4 opacity-95">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg"
+                         class="h-10" />
+
+                    <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg"
+                         class="h-10" />
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

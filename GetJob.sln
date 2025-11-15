@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.14.36327.8
+# Visual Studio Version 18
+VisualStudioVersion = 18.0.11116.177
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GetJob.Data", "Getjob.Data\GetJob.Data.csproj", "{D86FF798-C0FF-4DD3-BF40-B6939A876860}"
 EndProject
@@ -55,6 +55,7 @@ Global
 		{F243CDCA-049C-4CE2-A186-EBA268694549}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9EBBC84D-9B72-453C-8665-CC71B50735E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9EBBC84D-9B72-453C-8665-CC71B50735E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9EBBC84D-9B72-453C-8665-CC71B50735E1}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
 		{9EBBC84D-9B72-453C-8665-CC71B50735E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9EBBC84D-9B72-453C-8665-CC71B50735E1}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6E7A16B3-E0A6-4D97-B53E-BFBF674D8F95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
