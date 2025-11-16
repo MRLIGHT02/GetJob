@@ -33,17 +33,16 @@ builder.Services.AddScoped<IApplicationService, ApplicationService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
+
     app.MapOpenApi();
     app.MapScalarApiReference();
-}
+
 
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
 app.MapControllers();
-app.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
+
 
 app.Run();

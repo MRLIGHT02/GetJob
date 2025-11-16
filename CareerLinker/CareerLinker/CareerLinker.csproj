@@ -50,8 +50,6 @@
     <MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
 
     <!-- Images -->
-    <MauiImage Include="Resources\Images\*" />
-    <MauiImage Update="Resources\Images\dotnet_bot.svg" BaseSize="168,208" />
 
     <!-- Custom Fonts -->
     <MauiFont Include="Resources\Fonts\*" />
@@ -61,8 +59,27 @@
   </ItemGroup>
 
   <ItemGroup>
-    <MauiImage Remove="Resources\Images\careerlinker-logo.png" />
-    <MauiImage Remove="Resources\Images\carrerlinkerpnglogo.png" />
+    <Content Remove="wwwroot\Images\careerlinker-logo.png" />
+    <Content Remove="wwwroot\Images\carrerlinkerpnglogo.png" />
+    <Content Remove="wwwroot\Images\dotnet_bot.svg" />
+  </ItemGroup>
+	
+  <ItemGroup>
+    <MauiAsset Include="wwwroot\Images\careerlinker-logo.png" />
+    <MauiAsset Include="wwwroot\Images\carrerlinkerpnglogo.png" />
+    <MauiAsset Include="wwwroot\Images\dotnet_bot.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <MauiImage Include="wwwroot\Images\dotnet_bot.svg">
+      <BaseSize>168,208</BaseSize>
+    </MauiImage>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\Images\careerlinker-logo.png" />
+    <None Include="wwwroot\Images\carrerlinkerpnglogo.png" />
+    <None Include="wwwroot\Images\dotnet_bot.svg" />
   </ItemGroup>
 
   <ItemGroup>
